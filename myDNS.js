@@ -15,11 +15,24 @@ var ovh = require('ovh')({
         ovh.request('PUT', '/domain/zone/' + element.domain + '/record/' + element.id, {
             target : myip
         }, function (err, result) {
-            console.log(err || result);
-            console.log("Le domaine " + element.domain + " a ete match avec l'IP " + myip);
-          });
-        ovh.request('POST', '/domain/zone/' + element.domain + '/refresh', function (err, result) {
-            console.log(err || result);
+            if(err == null || result == null)
+            {
+              console.log("Le domaine " + element.domain + " a ete match avec l'IP " + myip);
+              ovh.request('POST', '/domain/zone/' + element.domain + '/refresh', function (err, result) {
+                if(err == null || result == null)
+                {
+                  console.log("Le domaine " + element.domain + " a ete refresh");
+                }
+                else
+                {
+                  console.log(err || result);
+                }
+              });
+            }
+            else
+            {
+              console.log(err || result);
+            }
           });
     });
 })();
