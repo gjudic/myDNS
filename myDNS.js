@@ -18,5 +18,8 @@ var ovh = require('ovh')({
             console.log(err || result);
             console.log("Le domaine " + element.domain + " a ete match avec l'IP " + myip);
           });
+        ovh.request('POST', '/domain/zone/' + element.domain + '/refresh', function (err, result) {
+            console.log(err || result);
+          });
     });
 })();
