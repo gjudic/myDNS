@@ -1,0 +1,20 @@
+{
+  "name": "mydns",
+  "version": "1.0.0",
+  "description": "",
+  "main": "myDNS.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.mygoz.com/gjudic/myDNS.git"
+  },
+  "author": "gjudic",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "ovh": "^2.0.3",
+    "public-ip": "^4.0.3"
+  }
+}
