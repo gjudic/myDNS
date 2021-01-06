@@ -12,16 +12,25 @@ var ovh = require('ovh')({
     var myip = (await publicIp.v4());
 
     domains.forEach(element => {
-        ovh.request('PUT', '/domain/zone/' + element.domain + '/record/' + element.id, {
+
+
+      data_received = ovh.request('GET', '/domain/zone/' + element.domain + '/record/' + element.id, function (error, dom) {
+        if(dom.target == myip)
+        {
+          console.log("[//] Le domaine " + element.domain + " est déja associé à l'IP " + myip);
+        }
+        else
+        {
+          ovh.request('PUT', '/domain/zone/' + element.domain + '/record/' + element.id, {
             target : myip
         }, function (err, result) {
             if(err == null || result == null)
             {
-              console.log("Le domaine " + element.domain + " a ete match avec l'IP " + myip);
+              console.log("[++] Le domaine " + element.domain + " a ete associe a l'IP " + myip);
               ovh.request('POST', '/domain/zone/' + element.domain + '/refresh', function (err, result) {
                 if(err == null || result == null)
                 {
-                  console.log("Le domaine " + element.domain + " a ete refresh");
+                  console.log("[++] Le domaine " + element.domain + " a ete refresh");
                 }
                 else
                 {
@@ -34,5 +43,7 @@ var ovh = require('ovh')({
               console.log(err || result);
             }
           });
+        }
+      });
     });
 })();
